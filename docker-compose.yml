@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  knot-resolver:
+    image: knot-resolver
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - type: tmpfs
+        target: /var/run/kresd
+        tmpfs:
+          size: 105000000
+    network_mode: "bridge"
+    ports: 
+      - 53:4053/tcp
+      - 53:4053/udp
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]

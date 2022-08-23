@@ -1,0 +1,21 @@
+-- Bind ports as privileged user (root) --
+net.ipv6 = false
+net.listen(net.eth0, 4053, { kind = 'dns', freebind = true })
+net.listen('/tmp/kres.control', nil, { kind = 'control' })
+
+-- Load Useful modules
+modules = {
+	'hints > iterate', -- Load /etc/hosts and allow custom root hints
+	'stats',    -- Track internal statistics
+	'predict',  -- Prefetch expiring/frequent records
+	'view'
+}
+
+##AUTHORIZED_BLOCKS##
+
+view:addr('0.0.0.0/0', policy.all(policy.DROP))
+
+-- Switch to unprivileged user -
+-- user('kresd','kresd')
+-- Unprivileged
+cache.open(100 * MB, 'lmdb:///var/run/kresd')
