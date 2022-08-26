@@ -1,4 +1,4 @@
-# Simple docker image for Knot DNS Resolver
+# Simple docker image for Knot Resolver
 
 ## Foreword
 
