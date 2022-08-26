@@ -16,4 +16,6 @@ services:
     ports: 
       - 53:4053/tcp
       - 53:4053/udp
+    environment:
+      - AUTHORIZED_BLOCKS
     entrypoint: ["/bin/bash", "/entrypoint.sh"]
